@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Button from "./Button";
 
 export default function Buttons() {
-  const [buttons, setButtons] = useState(Array(9).fill("x"))
+  const [buttons, setButtons] = useState(Array(9).fill(""))
   return (
     <>
       <div className="row">
