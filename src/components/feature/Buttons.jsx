@@ -7,7 +7,7 @@ export default function Buttons() {
 
   function handleClick(i) {
     const buttonsCopy = buttons.slice();
-    if (buttonsCopy[i]) {
+    if (buttonsCopy[i] || winner) {
       return;
     }
     if (xTurn) {
@@ -18,8 +18,35 @@ export default function Buttons() {
     setXTurn(!xTurn);
     setButtons(buttonsCopy);
   }
+  const winner = calculateWinner(buttons);
+  let status;
+  if (winner) {
+    status = "The winner is: " + winner;
+  } else {
+    status = "The next player is: " + (xTurn ? "X" : "O");
+  }
+  function calculateWinner(pieces) {
+    const final = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6],
+    ];
+    for (let i = 0; i < final.length; i++) {
+      const [x, y, z] = final[i];
+      if (pieces[x] && pieces[x] === pieces[y] && pieces[x] === pieces[z]) {
+        return pieces[x];
+      }
+    }
+    return;
+  }
   return (
     <>
+      <h2>{status}</h2>
       <div className="row">
         <Button value={buttons[0]} handleClick={() => handleClick(0)} />
         <Button value={buttons[1]} handleClick={() => handleClick(1)} />
