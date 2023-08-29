@@ -3,10 +3,16 @@ import Button from "./Button";
 
 export default function Buttons() {
   const [buttons, setButtons] = useState(Array(9).fill(""));
+  const [xTurn, setXTurn] = useState(true);
 
   function handleClick(i) {
     const buttonsCopy = buttons.slice();
-    buttonsCopy[i] = "x";
+    if (xTurn) {
+      buttonsCopy[i] = "X";
+    } else {
+      buttonsCopy[i] = "O";
+    }
+    setXTurn(!xTurn);
     setButtons(buttonsCopy);
   }
   return (
