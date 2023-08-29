@@ -1,7 +1,7 @@
 import React from 'react'
 
-export default function Button() {
+export default function Button({value}) {
   return (
-    <button>X</button>
+    <button>{value}</button>
   )
 }
