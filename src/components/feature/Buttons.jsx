@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import Button from "./Button";
 
 export default function Buttons() {
-  const [buttons, setButtons] = useState(Array(9).fill(""));
+  const [buttons, setButtons] = useState(Array(9).fill("-"));
   const [oTurn, setOTurn] = useState(false);
 
   function handleClick(value) {
     const buttonsCopy = buttons.slice();
-    if (buttonsCopy[value] || calculateResult(buttons)) {
+    if (buttonsCopy[value] !== "-" || calculateResult(buttons)) {
       return;
     }
     if (oTurn) {
@@ -21,11 +21,10 @@ export default function Buttons() {
   const result = calculateResult(buttons);
   let status;
   if (result) {
-    status = "The winner is " + result
+    status = "The winner is " + result;
   } else {
-    status = "Next player is " + (oTurn ? "O" : "X")
+    status = "Next player is " + (oTurn ? "O" : "X");
   }
-  
 
   function calculateResult(pieces) {
     const correct = [
@@ -40,8 +39,10 @@ export default function Buttons() {
     ];
     for (let i = 0; i < correct.length; i++) {
       const [x, y, z] = correct[i];
-      if (pieces[x] && pieces[x] === pieces[y] && pieces[x] === pieces[z]) {
-        return pieces[x];
+      if (pieces[x] !== "-") {
+        if (pieces[x] && pieces[x] === pieces[y] && pieces[x] === pieces[z]) {
+          return pieces[x];
+        }
       }
     }
     return false;
