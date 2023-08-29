@@ -7,6 +7,9 @@ export default function Buttons() {
 
   function handleClick(i) {
     const buttonsCopy = buttons.slice();
+    if (buttonsCopy[i]) {
+      return;
+    }
     if (xTurn) {
       buttonsCopy[i] = "X";
     } else {
