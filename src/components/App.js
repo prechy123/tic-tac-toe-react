@@ -1,7 +1,8 @@
+import Buttons from "./feature/Buttons";
 
 function App() {
   return (
-    <h2>Hello world</h2>
+    <Buttons />
   );
 }
 
