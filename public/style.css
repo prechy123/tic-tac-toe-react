@@ -1,0 +1,16 @@
+:root {
+    --color1: #999ea7;
+    --color2: #0d0c0c;
+    --color3: #19202c;
+    --color4: #475f82;
+    --color5: #65584e;
+    --color6: #b29887;
+    --color7: #cccccc
+}
+
+* {
+    margin: 0;
+    border: 0;
+    box-sizing: border-box;
+    color: var(--color3);
+}
