@@ -4,9 +4,10 @@ const gameSchema = mongoose.Schema({
   id: Number,
   buttons: [
     {
-        type: Number,
+      type: Number,
     },
   ],
+  winner: String,
 });
 
 const Game = mongoose.model("game", gameSchema);
