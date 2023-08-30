@@ -1,7 +1,12 @@
-import Buttons from "./feature/Buttons";
+import Home from "./Home";
 
 function App() {
-  return <Buttons />;
+  return (
+    <>
+      {/* <Example /> */}
+      <Home />
+    </>
+  );
 }
 
 export default App;
