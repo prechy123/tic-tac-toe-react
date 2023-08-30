@@ -6,15 +6,22 @@ export default function Buttons() {
   const [buttons, setButtons] = useState(Array(9).fill("-"));
   const [xTurn, setXTurn] = useState(true);
 
-  const getButtons = async () => {
+  const getInitialButtons = async () => {
     const response = await axios("/tictactoe");
     console.log(response.data.message);
-    const message = response.data.message;
-    for (let i = 0; i < message.length; i++) {
-      addButtons(message[i]);
-    }
+    const indices = response.data.message;
+    const newButton = Array(9).fill("-");
+    let turn = true;
+    indices.forEach((index) => {
+      newButton[index] = turn ? "X" : "O";
+      turn = !turn;
+    });
+
+    setButtons(newButton);
   };
-  getButtons();
+  useEffect(() => {
+    getInitialButtons();
+  }, []);
 
   function addButtons(messageLast) {
     const buttonsCopy = buttons.slice();
