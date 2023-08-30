@@ -50,6 +50,7 @@ export default function Buttons() {
     const response = await axios.post("/tictactoe/clear");
     console.log(response.data.message);
     setButtons(Array(9).fill("-"));
+    setXTurn(true)
   };
 
   const calculateResult = (values) => {
