@@ -8,25 +8,25 @@ export default function Buttons() {
 
   function addButtons(messageLast) {
     const buttonsCopy = buttons.slice();
-    if (buttonsCopy[messageLast] !== "-") {
+    if (buttonsCopy[messageLast] !== "-" || calculateResult(buttons)) {
       return;
     }
     if (xTurn) {
-      buttonsCopy[messageLast] = "X"
+      buttonsCopy[messageLast] = "X";
     } else {
-      buttonsCopy[messageLast] = "O"
+      buttonsCopy[messageLast] = "O";
     }
     setXTurn(!xTurn);
-    setButtons(buttonsCopy)
+    setButtons(buttonsCopy);
   }
 
   const handleClick = async (value) => {
     const response = await axios.post("/tictactoe", {
       buttonValue: value,
     });
-    console.log(response.data.message)
+    console.log(response.data.message);
     const message = response.data.message;
-    const messageLast = message[message.length - 1]
+    const messageLast = message[message.length - 1];
     addButtons(messageLast);
   };
   const clearGame = async () => {
@@ -34,51 +34,40 @@ export default function Buttons() {
     console.log(response.data.message);
     setButtons(Array(9).fill("-"));
   };
-  // function handleClick(value) {
-  //   const buttonsCopy = buttons.slice();
-  //   if (buttonsCopy[value] !== "-" || calculateResult(buttons)) {
-  //     return;
-  //   }
-  //   if (oTurn) {
-  //     buttonsCopy[value] = "O";
-  //   } else {
-  //     buttonsCopy[value] = "X";
-  //   }
-  //   setButtons(buttonsCopy);
-  //   setOTurn(!oTurn);
-  // }
-  // const result = calculateResult(buttons);
-  // let status;
-  // if (result) {
-  //   status = "The winner is " + result;
-  // } else {
-  //   status = "Next player is " + (oTurn ? "O" : "X");
-  // }
+  
 
-  // function calculateResult(pieces) {
-  //   const correct = [
-  //     [0, 1, 2],
-  //     [3, 4, 5],
-  //     [6, 7, 8],
-  //     [0, 3, 6],
-  //     [1, 4, 7],
-  //     [2, 5, 8],
-  //     [0, 4, 8],
-  //     [2, 4, 6],
-  //   ];
-  //   for (let i = 0; i < correct.length; i++) {
-  //     const [x, y, z] = correct[i];
-  //     if (pieces[x] !== "-") {
-  //       if (pieces[x] && pieces[x] === pieces[y] && pieces[x] === pieces[z]) {
-  //         return pieces[x];
-  //       }
-  //     }
-  //   }
-  //   return false;
-  // }
+  const calculateResult = (values) => {
+    const correct = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6],
+    ];
+    for (let i = 0; i < correct.length; i++) {
+      const [x, y, z] = correct[i];
+      if (values[x] !== "-") {
+        if (values[x] && values[x] === values[y] && values[x] === values[z]) {
+          return values[x];
+        }
+      }
+    }
+    return null;
+  };
+
+  const result = calculateResult(buttons);
+  let status;
+  if (result) {
+    status = "The winner is " + result;
+  } else {
+    status = "Next player is " + (xTurn ? "X" : "O");
+  }
   return (
     <>
-      {/* <h1>{status}</h1> */}
+      <h1>{status}</h1>
       <div>
         <Button value={buttons[0]} handleClick={() => handleClick(0)} />
         <Button value={buttons[1]} handleClick={() => handleClick(1)} />
@@ -94,7 +83,7 @@ export default function Buttons() {
         <Button value={buttons[7]} handleClick={() => handleClick(7)} />
         <Button value={buttons[8]} handleClick={() => handleClick(8)} />
       </div>
-      <button onClick={clearGame}>Clear game</button>
+      <button onClick={clearGame}>Start Over</button>
     </>
   );
 }
