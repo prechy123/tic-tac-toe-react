@@ -32,3 +32,19 @@ export const updateGame = async (req, res) => {
     res.status(500).json({error: err.message})
   }
 };
+
+export const clearGame = async (req, res) => {
+    try {
+        const response = await Game.findOneAndUpdate(
+            {id: 1},
+            {$set: {buttons: []}},
+            {new: true}
+        )
+        if (response) {
+            return res.status(200).json({message: response.buttons})
+        }
+        res.status(400).json({message: "Not found"})
+    } catch (err) {
+        res.status(500).json({error: err.message})
+    }
+}
