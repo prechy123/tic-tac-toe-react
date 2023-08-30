@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "./Button";
 import axios from "axios";
 
@@ -6,16 +6,15 @@ export default function Buttons() {
   const [buttons, setButtons] = useState(Array(9).fill("-"));
   const [xTurn, setXTurn] = useState(true);
 
-  const getButtons = async() => {
-    const response = await axios("/tictactoe")
-    console.log(response.data.message)
-    const message = response.data.message
+  const getButtons = async () => {
+    const response = await axios("/tictactoe");
+    console.log(response.data.message);
+    const message = response.data.message;
     for (let i = 0; i < message.length; i++) {
-      addButtons(message[i])
+      addButtons(message[i]);
     }
-    
-  }
-  getButtons()
+  };
+  getButtons();
 
   function addButtons(messageLast) {
     const buttonsCopy = buttons.slice();
@@ -45,7 +44,6 @@ export default function Buttons() {
     console.log(response.data.message);
     setButtons(Array(9).fill("-"));
   };
-  
 
   const calculateResult = (values) => {
     const correct = [
