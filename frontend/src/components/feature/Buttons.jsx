@@ -5,13 +5,13 @@ import axios from "axios";
 export default function Buttons() {
   const [buttons, setButtons] = useState(Array(9).fill("-"));
   const [xTurn, setXTurn] = useState(true);
-  const [winner, setWinner] = useState("")
+  const [winner, setWinner] = useState("");
 
   useEffect(() => {
     const getWinner = async () => {
       const response = await axios("/tictactoe/findWinner");
       console.log(response.data.message);
-      setWinner(response.data.message)
+      setWinner(response.data.message);
     };
     getWinner();
   }, []);
@@ -78,6 +78,18 @@ export default function Buttons() {
       const [x, y, z] = correct[i];
       if (values[x] !== "-") {
         if (values[x] && values[x] === values[y] && values[x] === values[z]) {
+          const updateWinner = async () => {
+            const response = await axios.post("/tictactoe/updateWinner", {
+              winner: values[x],
+            });
+            console.log(response.data.message);
+          };
+          updateWinner();
+          const getWinner = async () => {
+            const response = await axios("/tictactoe/findWinner");
+            setWinner(response.data.message);
+          };
+          getWinner();
           return values[x];
         }
       }
