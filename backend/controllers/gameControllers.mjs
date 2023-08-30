@@ -65,3 +65,19 @@ export const updateWinner = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+export const findWinner = async (req, res) => {
+  try {
+    const response = await Game.findOne({ id: 1 });
+    if (response) {
+      return res.status(200).json({ message: response.winner });
+    }
+    const newGame = new Game({
+      id: 1,
+    });
+    await newGame.save();
+    res.status(200).json({ message: "Game created" });
+  } catch (err) {
+    console.log(err);
+  }
+};

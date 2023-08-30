@@ -5,6 +5,16 @@ import axios from "axios";
 export default function Buttons() {
   const [buttons, setButtons] = useState(Array(9).fill("-"));
   const [xTurn, setXTurn] = useState(true);
+  const [winner, setWinner] = useState("")
+
+  useEffect(() => {
+    const getWinner = async () => {
+      const response = await axios("/tictactoe/findWinner");
+      console.log(response.data.message);
+      setWinner(response.data.message)
+    };
+    getWinner();
+  }, []);
 
   const getInitialButtons = async () => {
     const response = await axios("/tictactoe");
@@ -16,7 +26,7 @@ export default function Buttons() {
       newButton[index] = turn ? "X" : "O";
       turn = !turn;
     });
-//
+    //
     setButtons(newButton);
   };
   useEffect(() => {
@@ -50,7 +60,7 @@ export default function Buttons() {
     const response = await axios.post("/tictactoe/clear");
     console.log(response.data.message);
     setButtons(Array(9).fill("-"));
-    setXTurn(true)
+    setXTurn(true);
   };
 
   const calculateResult = (values) => {
@@ -101,6 +111,7 @@ export default function Buttons() {
         <Button value={buttons[8]} handleClick={() => handleClick(8)} />
       </div>
       <button onClick={clearGame}>Start Over</button>
+      <h1>Previous winner is {winner}</h1>
     </>
   );
 }
