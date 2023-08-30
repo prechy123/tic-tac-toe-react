@@ -8,6 +8,9 @@ export default function Buttons() {
 
   function addButtons(messageLast) {
     const buttonsCopy = buttons.slice();
+    if (buttonsCopy[messageLast] !== "-") {
+      return;
+    }
     if (xTurn) {
       buttonsCopy[messageLast] = "X"
     } else {
@@ -24,13 +27,12 @@ export default function Buttons() {
     console.log(response.data.message)
     const message = response.data.message;
     const messageLast = message[message.length - 1]
-    // setButtonsPrefix(response.data.message)
     addButtons(messageLast);
   };
   const clearGame = async () => {
     const response = await axios.post("/tictactoe/clear");
     console.log(response.data.message);
-    setButtons(response.data.message);
+    setButtons(Array(9).fill("-"));
   };
   // function handleClick(value) {
   //   const buttonsCopy = buttons.slice();
