@@ -17,15 +17,18 @@ export const findGame = async (req, res) => {
 };
 
 export const updateGame = async (req, res) => {
-  const { buttonValue, id } = req.body;
+  const { buttonValue } = req.body;
   try {
     const response = await Game.findOneAndUpdate(
-      { id: id },
+      { id: 1 },
       { $push: { buttons: buttonValue } },
       { new: true }
     );
-    console.log(response);
+    if (response) {
+        return res.status(200).json({message: response.buttons})
+    }
+    res.status(400).json({message: "Not found"})
   } catch (err) {
-    console.log(err);
+    res.status(500).json({error: err.message})
   }
 };

@@ -4,6 +4,6 @@ import { findGame, updateGame } from "../controllers/gameControllers.mjs";
 const router = express.Router();
 
 router.get("/", findGame);
-router.post("/update", updateGame);
+router.post("/", updateGame);
 
 export default router;
