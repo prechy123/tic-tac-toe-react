@@ -10,7 +10,6 @@ export default function Buttons() {
   useEffect(() => {
     const getWinner = async () => {
       const response = await axios("/tictactoe/findWinner");
-      console.log(response.data.message);
       setWinner(response.data.message);
     };
     getWinner();
@@ -18,7 +17,6 @@ export default function Buttons() {
 
   const getInitialButtons = async () => {
     const response = await axios("/tictactoe");
-    console.log(response.data.message);
     const indices = response.data.message;
     const newButton = Array(9).fill("-");
     let turn = true;
@@ -26,7 +24,6 @@ export default function Buttons() {
       newButton[index] = turn ? "X" : "O";
       turn = !turn;
     });
-    //
     setButtons(newButton);
   };
   useEffect(() => {
@@ -51,14 +48,12 @@ export default function Buttons() {
     const response = await axios.post("/tictactoe", {
       buttonValue: value,
     });
-    console.log(response.data.message);
     const message = response.data.message;
     const messageLast = message[message.length - 1];
     addButtons(messageLast);
   };
   const clearGame = async () => {
-    const response = await axios.post("/tictactoe/clear");
-    console.log(response.data.message);
+    await axios.post("/tictactoe/clear");
     setButtons(Array(9).fill("-"));
     setXTurn(true);
   };
@@ -79,10 +74,9 @@ export default function Buttons() {
       if (values[x] !== "-") {
         if (values[x] && values[x] === values[y] && values[x] === values[z]) {
           const updateWinner = async () => {
-            const response = await axios.post("/tictactoe/updateWinner", {
+            await axios.post("/tictactoe/updateWinner", {
               winner: values[x],
             });
-            console.log(response.data.message);
           };
           updateWinner();
           const getWinner = async () => {
