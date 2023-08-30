@@ -1,20 +1,13 @@
 import express from "express";
 import mongoose from "mongoose";
-import cors from "cors";
 import "dotenv/config";
 import router from "./routes/gameRoutes.mjs";
 
 const app = express();
 
-app.use(
-  cors({
-    origin: "https://localhost:3000",
-  })
-);
-
 app.use(express.json());
 
-app.use("/", router);
+app.use("/tictactoe", router);
 
 mongoose
   .connect(process.env.MONGODB)
