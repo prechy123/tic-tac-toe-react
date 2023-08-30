@@ -16,7 +16,7 @@ export default function Buttons() {
       newButton[index] = turn ? "X" : "O";
       turn = !turn;
     });
-
+//
     setButtons(newButton);
   };
   useEffect(() => {
