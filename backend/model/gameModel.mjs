@@ -1,10 +1,12 @@
 import mongoose from "mongoose";
 
 const gameSchema = mongoose.Schema({
-  _id: 1,
-  buttons: {
-    type: Array,
-  },
+  id: Number,
+  buttons: [
+    {
+      type: Number,
+    },
+  ],
 });
 
 const Game = mongoose.model("game", gameSchema);
