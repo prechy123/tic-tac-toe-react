@@ -48,3 +48,20 @@ export const clearGame = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+export const updateWinner = async (req, res) => {
+  const { winner } = req.body;
+  try {
+    const response = await Game.findOneAndUpdate(
+      { id: 1 },
+      { winner: winner },
+      { new: true }
+    );
+    if (response) {
+      return res.status(200).json({ message: response.winner });
+    }
+    res.status(400).json({ message: "not found" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};

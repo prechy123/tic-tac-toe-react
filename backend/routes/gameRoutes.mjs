@@ -1,11 +1,16 @@
 import express from "express";
-import { clearGame, findGame, updateGame } from "../controllers/gameControllers.mjs";
+import {
+  clearGame,
+  findGame,
+  updateGame,
+  updateWinner,
+} from "../controllers/gameControllers.mjs";
 
 const router = express.Router();
 
 router.get("/", findGame);
 router.post("/", updateGame);
-router.post("/clear", clearGame)
-
+router.post("/clear", clearGame);
+router.post("/updateWinner", updateWinner);
 
 export default router;
