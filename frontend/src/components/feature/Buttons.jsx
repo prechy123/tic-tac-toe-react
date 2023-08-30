@@ -1,10 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "./Button";
 import axios from "axios";
 
 export default function Buttons() {
   const [buttons, setButtons] = useState(Array(9).fill("-"));
   const [xTurn, setXTurn] = useState(true);
+
+  useEffect(()=> {
+    const getButtons = async(req, res) => {
+      const response = await axios("/tictactoe")
+      console.log(response.data.message)
+    }
+    getButtons()
+  }, [])
 
   function addButtons(messageLast) {
     const buttonsCopy = buttons.slice();

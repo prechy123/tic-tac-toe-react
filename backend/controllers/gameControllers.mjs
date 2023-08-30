@@ -4,7 +4,7 @@ export const findGame = async (req, res) => {
   try {
     const response = await Game.findOne({ id: 1 });
     if (response) {
-      return res.status(200).json({ message: "Game found" });
+      return res.status(200).json({ message: response.buttons });
     }
     const newGame = new Game({
       id: 1,
@@ -25,26 +25,26 @@ export const updateGame = async (req, res) => {
       { new: true }
     );
     if (response) {
-        return res.status(200).json({message: response.buttons})
+      return res.status(200).json({ message: response.buttons });
     }
-    res.status(400).json({message: "Not found"})
+    res.status(400).json({ message: "Not found" });
   } catch (err) {
-    res.status(500).json({error: err.message})
+    res.status(500).json({ error: err.message });
   }
 };
 
 export const clearGame = async (req, res) => {
-    try {
-        const response = await Game.findOneAndUpdate(
-            {id: 1},
-            {$set: {buttons: []}},
-            {new: true}
-        )
-        if (response) {
-            return res.status(200).json({message: response.buttons})
-        }
-        res.status(400).json({message: "Not found"})
-    } catch (err) {
-        res.status(500).json({error: err.message})
+  try {
+    const response = await Game.findOneAndUpdate(
+      { id: 1 },
+      { $set: { buttons: [] } },
+      { new: true }
+    );
+    if (response) {
+      return res.status(200).json({ message: response.buttons });
     }
-}
+    res.status(400).json({ message: "Not found" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
