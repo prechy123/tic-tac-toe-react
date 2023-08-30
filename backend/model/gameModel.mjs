@@ -4,7 +4,7 @@ const gameSchema = mongoose.Schema({
   id: Number,
   buttons: [
     {
-      type: Number,
+        type: Number,
     },
   ],
 });

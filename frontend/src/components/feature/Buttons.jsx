@@ -4,18 +4,34 @@ import axios from "axios";
 
 export default function Buttons() {
   const [buttons, setButtons] = useState(Array(9).fill("-"));
-  // const [oTurn, setOTurn] = useState(false);
+  const [xTurn, setXTurn] = useState(true);
+
+  function addButtons(messageLast) {
+    const buttonsCopy = buttons.slice();
+    if (xTurn) {
+      buttonsCopy[messageLast] = "X"
+    } else {
+      buttonsCopy[messageLast] = "O"
+    }
+    setXTurn(!xTurn);
+    setButtons(buttonsCopy)
+  }
 
   const handleClick = async (value) => {
     const response = await axios.post("/tictactoe", {
       buttonValue: value,
     });
     console.log(response.data.message)
+    const message = response.data.message;
+    const messageLast = message[message.length - 1]
+    // setButtonsPrefix(response.data.message)
+    addButtons(messageLast);
   };
   const clearGame = async () => {
-    const response = await axios.post("/tictactoe/clear")
-    console.log(response.data.message)
-  }
+    const response = await axios.post("/tictactoe/clear");
+    console.log(response.data.message);
+    setButtons(response.data.message);
+  };
   // function handleClick(value) {
   //   const buttonsCopy = buttons.slice();
   //   if (buttonsCopy[value] !== "-" || calculateResult(buttons)) {
