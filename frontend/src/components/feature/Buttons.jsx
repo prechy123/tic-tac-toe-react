@@ -12,6 +12,10 @@ export default function Buttons() {
     });
     console.log(response.data.message)
   };
+  const clearGame = async () => {
+    const response = await axios.post("/tictactoe/clear")
+    console.log(response.data.message)
+  }
   // function handleClick(value) {
   //   const buttonsCopy = buttons.slice();
   //   if (buttonsCopy[value] !== "-" || calculateResult(buttons)) {
@@ -72,7 +76,7 @@ export default function Buttons() {
         <Button value={buttons[7]} handleClick={() => handleClick(7)} />
         <Button value={buttons[8]} handleClick={() => handleClick(8)} />
       </div>
-      <button>Clear game</button>
+      <button onClick={clearGame}>Clear game</button>
     </>
   );
 }
