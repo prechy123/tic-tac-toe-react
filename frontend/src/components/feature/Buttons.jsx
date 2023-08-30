@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Button from "./Button";
-import axios from "axios"
+import axios from "axios";
 
 export default function Buttons() {
   const [buttons, setButtons] = useState(Array(9).fill("-"));
   // const [oTurn, setOTurn] = useState(false);
 
-  const handleClick = async(value) => {
-    const response = await axios("/tictactoe", {
-      
-    })
-  }
+  const handleClick = async (value) => {
+    const response = await axios.post("/tictactoe", {
+      buttonValue: value,
+    });
+    console.log(response.data.message)
+  };
   // function handleClick(value) {
   //   const buttonsCopy = buttons.slice();
   //   if (buttonsCopy[value] !== "-" || calculateResult(buttons)) {
@@ -55,7 +56,7 @@ export default function Buttons() {
   // }
   return (
     <>
-      <h1>{status}</h1>
+      {/* <h1>{status}</h1> */}
       <div>
         <Button value={buttons[0]} handleClick={() => handleClick(0)} />
         <Button value={buttons[1]} handleClick={() => handleClick(1)} />
@@ -71,6 +72,7 @@ export default function Buttons() {
         <Button value={buttons[7]} handleClick={() => handleClick(7)} />
         <Button value={buttons[8]} handleClick={() => handleClick(8)} />
       </div>
+      <button>Clear game</button>
     </>
   );
 }
