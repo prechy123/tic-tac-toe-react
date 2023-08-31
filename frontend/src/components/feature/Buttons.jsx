@@ -117,7 +117,7 @@ export default function Buttons() {
           <Button value={buttons[7]} handleClick={() => handleClick(7)} />
           <Button value={buttons[8]} handleClick={() => handleClick(8)} />
         </div>
-        <button onClick={clearGame}>Start Over</button>
+        <div onClick={clearGame} class="text-gray-900 border-2 p-1 inline-block rounded-lg cursor-pointer hover:bg-gray-700 hover:text-white transition ease-linear duration-500">Start Over</div>
         <h1>Previous winner is {winner}</h1>
       </div>
     </>
