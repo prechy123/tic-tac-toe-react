@@ -118,7 +118,7 @@ export default function Buttons() {
           <Button value={buttons[8]} handleClick={() => handleClick(8)} />
         </div>
         <div onClick={clearGame} className="start-over">Start Over</div>
-        <h1 class="border-b pt-2 ">Previous winner is {winner}</h1>
+        <h1 className="border-b pt-2 ">Previous winner is {winner}</h1>
       </div>
     </>
   );
