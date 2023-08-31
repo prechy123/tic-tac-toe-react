@@ -101,7 +101,7 @@ export default function Buttons() {
   return (
     <>
       <div>
-        <h1>{status}</h1>
+        <h1 className="">{status}</h1>
         <div>
           <Button value={buttons[0]} handleClick={() => handleClick(0)} />
           <Button value={buttons[1]} handleClick={() => handleClick(1)} />
